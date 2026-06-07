@@ -203,7 +203,6 @@ class _EventContent extends StatelessWidget {
             ],
             const SizedBox(height: 26),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: -20),
               padding: const EdgeInsets.all(20),
               color: AppColors.background,
               child: GridView.count(
