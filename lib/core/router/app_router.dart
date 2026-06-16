@@ -65,14 +65,24 @@ class AppRouter {
         GoRoute(
           path: '/payment/:code',
           builder: (context, state) {
-            final booking = state.extra;
-            if (booking is! Booking) {
+            final extra = state.extra;
+            final booking = switch (extra) {
+              Booking booking => booking,
+              {'booking': final Booking booking} => booking,
+              _ => null,
+            };
+            final paymentUrl = switch (extra) {
+              {'paymentUrl': final String url} => url,
+              _ => null,
+            };
+            if (booking == null) {
               return const _RouteErrorPage(
                 message: 'Open payment from a booking.',
               );
             }
             return PaymentSimulatorPage(
               booking: booking,
+              paymentUrl: paymentUrl,
               remoteDataSource: remoteDataSource,
             );
           },

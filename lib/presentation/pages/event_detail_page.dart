@@ -41,7 +41,7 @@ class EventDetailPage extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                expandedHeight: 430,
+                expandedHeight: 360,
                 pinned: true,
                 backgroundColor: AppColors.dark,
                 foregroundColor: Colors.white,
@@ -59,7 +59,24 @@ class EventDetailPage extends StatelessWidget {
                   ),
                 ],
                 flexibleSpace: FlexibleSpaceBar(
-                  background: RemoteImage(url: event.imageUrl),
+                  background: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      RemoteImage(url: event.imageUrl),
+                      const DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0x33000000),
+                              Color(0x99000000),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SliverToBoxAdapter(child: _EventContent(event: event)),
@@ -144,20 +161,30 @@ class _EventContent extends StatelessWidget {
     };
 
     return Transform.translate(
-      offset: const Offset(0, -34),
+      offset: const Offset(0, -12),
       child: Container(
         padding: const EdgeInsets.fromLTRB(20, 26, 20, 10),
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(34)),
         ),
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 8,
+              ),
               decoration: BoxDecoration(
                 color: statusColor,
                 borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: statusColor.withValues(alpha: 0.28),
+                    blurRadius: 14,
+                    offset: const Offset(0, 7),
+                  ),
+                ],
               ),
               child: Text(
                 statusText,
@@ -168,7 +195,7 @@ class _EventContent extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 16),
             Text(
               event.title,
               textAlign: TextAlign.center,
@@ -201,40 +228,36 @@ class _EventContent extends StatelessWidget {
                 ),
               ),
             ],
-            const SizedBox(height: 26),
-            Container(
-              padding: const EdgeInsets.all(20),
-              color: AppColors.background,
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                childAspectRatio: 1.18,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: [
-                  _InfoCard(
-                    icon: Icons.monetization_on_outlined,
-                    value: formatCurrency(event.totalPrize),
-                    label: 'Total Prize',
-                  ),
-                  _InfoCard(
-                    icon: Icons.calendar_month_outlined,
-                    value: formatEventDate(event.date),
-                    label: 'Event Started',
-                  ),
-                  _InfoCard(
-                    icon: Icons.groups_outlined,
-                    value: '${event.maxParticipants} People',
-                    label: 'Total Participants',
-                  ),
-                  _InfoCard(
-                    icon: Icons.emoji_events_outlined,
-                    value: event.category.name,
-                    label: 'Event Type',
-                  ),
-                ],
-              ),
+            const SizedBox(height: 24),
+            GridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 14,
+              crossAxisSpacing: 14,
+              childAspectRatio: 1.16,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                _InfoCard(
+                  icon: Icons.monetization_on_outlined,
+                  value: formatCurrency(event.totalPrize),
+                  label: 'Total Prize',
+                ),
+                _InfoCard(
+                  icon: Icons.calendar_month_outlined,
+                  value: formatEventDate(event.date),
+                  label: 'Event Started',
+                ),
+                _InfoCard(
+                  icon: Icons.groups_outlined,
+                  value: '${event.maxParticipants} People',
+                  label: 'Total Participants',
+                ),
+                _InfoCard(
+                  icon: Icons.emoji_events_outlined,
+                  value: event.category.name,
+                  label: 'Event Type',
+                ),
+              ],
             ),
             const SizedBox(height: 28),
             const Align(

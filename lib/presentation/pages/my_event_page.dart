@@ -56,7 +56,7 @@ class _MyEventPageState extends State<MyEventPage> {
                 fit: BoxFit.contain,
               ),
               Transform.translate(
-                offset: const Offset(0, -42),
+                offset: const Offset(0, -10),
                 child: Container(
                   padding: const EdgeInsets.all(22),
                   decoration: BoxDecoration(

@@ -188,6 +188,7 @@ class _CategoryChip extends StatelessWidget {
       child: ChoiceChip(
         label: Text(label),
         selected: selected,
+        showCheckmark: false,
         onSelected: (_) => onTap(),
         selectedColor: AppColors.purple,
         labelStyle: TextStyle(

@@ -53,7 +53,13 @@ class _BookingPageState extends State<BookingPage> {
   void _handleSuccess(BookingLoaded state) {
     if (!mounted) return;
     if (state.paymentRequired) {
-      context.go('/payment/${state.booking.code}', extra: state.booking);
+      context.go(
+        '/payment/${state.booking.code}',
+        extra: {
+          'booking': state.booking,
+          'paymentUrl': state.paymentUrl,
+        },
+      );
     } else {
       context.go('/ticket/${state.booking.code}', extra: state.booking);
     }
@@ -208,7 +214,7 @@ class _ProgressHeader extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 24,
+            top: 61,
             left: 64,
             right: 64,
             child: Row(
@@ -260,7 +266,7 @@ class _DashedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.8)
+      ..color = Colors.white.withValues(alpha: 0.8)
       ..strokeWidth = 2;
     const dashWidth = 6.0;
     const dashSpace = 4.0;
