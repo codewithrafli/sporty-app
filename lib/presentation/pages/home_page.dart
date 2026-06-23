@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: _Section(
                     color: AppColors.background,
-                    title: 'Most Popular',
+                    title: 'Visited Events',
                     subtitle: 'Backed by the community',
                     onViewAll: () => context.push('/browse'),
                     child: SizedBox(

@@ -161,9 +161,9 @@ class _EventContent extends StatelessWidget {
     };
 
     return Transform.translate(
-      offset: const Offset(0, -12),
+      offset: const Offset(0, -20),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(20, 26, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(34)),
@@ -383,7 +383,7 @@ class _EventContent extends StatelessWidget {
   }
 }
 
-class _InfoCard extends StatelessWidget {
+class _InfoCard extends StatefulWidget {
   const _InfoCard({
     required this.icon,
     required this.value,
@@ -395,30 +395,55 @@ class _InfoCard extends StatelessWidget {
   final String label;
 
   @override
+  State<_InfoCard> createState() => _InfoCardState();
+}
+
+class _InfoCardState extends State<_InfoCard> {
+  bool _pressed = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: AppColors.muted, size: 27),
-          const Spacer(),
-          Text(
-            value,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w900),
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: _pressed ? AppColors.orange : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: _pressed ? AppColors.orange : AppColors.border,
           ),
-          Text(
-            label,
-            style: const TextStyle(color: AppColors.muted, fontSize: 12),
-          ),
-        ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              widget.icon,
+              color: _pressed ? Colors.white : AppColors.muted,
+              size: 27,
+            ),
+            const Spacer(),
+            Text(
+              widget.value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                color: _pressed ? Colors.white : AppColors.dark,
+              ),
+            ),
+            Text(
+              widget.label,
+              style: TextStyle(
+                color: _pressed ? Colors.white70 : AppColors.muted,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
