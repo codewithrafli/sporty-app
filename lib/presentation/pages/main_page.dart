@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
 import '../../data/datasources/sportly_remote_data_source.dart';
 import '../blocs/booking/booking_bloc.dart';
+import '../blocs/rewards/rewards_bloc.dart';
 import 'help_page.dart';
 import 'home_page.dart';
 import 'my_event_page.dart';
@@ -31,7 +32,10 @@ class _MainPageState extends State<MainPage> {
         child: const MyEventPage(),
       ),
       const SizedBox(),
-      const RewardsPage(),
+      BlocProvider(
+        create: (_) => RewardsBloc(widget.remoteDataSource),
+        child: const RewardsPage(),
+      ),
       const HelpPage(),
     ];
 
