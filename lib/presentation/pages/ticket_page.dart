@@ -48,6 +48,10 @@ class _TicketPageState extends State<TicketPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Entrance Ticket'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
           actions: [
             BlocBuilder<BookingBloc, BookingState>(
               builder: (context, state) => IconButton(
@@ -232,8 +236,6 @@ class _TicketDetail extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.notes_rounded, size: 20),
-        const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

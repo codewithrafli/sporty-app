@@ -471,8 +471,6 @@ class _DetailRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.notes_rounded, size: 20),
-          const SizedBox(width: 10),
           Expanded(
             child: Text(label, style: const TextStyle(color: AppColors.muted)),
           ),

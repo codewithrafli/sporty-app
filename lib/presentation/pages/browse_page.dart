@@ -70,10 +70,6 @@ class _BrowsePageState extends State<BrowsePage> {
                   decoration: InputDecoration(
                     hintText: 'Search by name',
                     prefixIcon: const Icon(Icons.search_rounded),
-                    suffixIcon: IconButton(
-                      onPressed: _load,
-                      icon: const Icon(Icons.arrow_forward_rounded),
-                    ),
                   ),
                 ),
               ),
